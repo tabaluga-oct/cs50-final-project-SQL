@@ -1,0 +1,24 @@
+#### Administrative Users
+
+the `admin_users` table includes:
+
+* `id`, which specifies the unique ID for the admin staff as an `INT`. This column thus has the `PRIMARY KEY` constraint applied, also with AUTO INCREMENT.
+* `username`, which is the unique identifier for the admin user as an `VARCHAR(50)`, it's appropriate for name fields and a reasonable length.
+* `password`, which stores hashed passwords. using SHA-256, which produces a 256-bit hash, so the type is `BINARY(64)`
+* `role`, which specifies the rolls of the emplyee from the club as `SET('manager', 'Technical', 'Sys Admin', 'Sales', 'Customer Service')`, because an employee can have multi-roles.
+* `permissions`, which specifies what kind of access the admin user has to access the database as an `TEXT`. because the permissions will be written in JSON, TEXT is the right choice.
+
+All columns are required and hence have the `NOT NULL` constraint applied where a `PRIMARY KEY` constraint is not. `username` should be `UNIQUE`.
+
+
+
+* erDiagram using Mermaid Chart
+
+erDiagram
+    Users ||--|| Membership : has
+    Tickets }o--o| Users : buys
+    Matches }o--|| stadiums : take_place
+    Tickets }o--|| Matches : is_sold_for
+    Tickets }o--|| Ticket_types : has
+    Transactions |o--|{ Tickets : involves
+    Inventory ||--|| Matches : contains
